@@ -304,6 +304,7 @@
         <module>js</module>
         <module>test-framework</module>
         <module>quarkus</module>
+        <module>mapletree</module>
     </modules>
 
     <dependencyManagement>
