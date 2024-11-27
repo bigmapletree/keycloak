@@ -10,6 +10,7 @@ import {
   LinkedinIcon,
   MicrosoftIcon,
   OpenshiftIcon,
+  OutlinedCommentsIcon,
   PaypalIcon,
   StackOverflowIcon,
   TwitterIcon,
@@ -57,6 +58,8 @@ function getIcon(icon: string) {
       return InstagramIcon;
     case "paypal":
       return PaypalIcon;
+    case "wecom":
+      return OutlinedCommentsIcon;
     default:
       return CubeIcon;
   }
