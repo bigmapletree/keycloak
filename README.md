@@ -1,75 +1,67 @@
-![Keycloak](https://github.com/keycloak/keycloak-misc/blob/main/logo/logo.svg)
+# Mapletree forked Keycloak
 
-![GitHub Release](https://img.shields.io/github/v/release/keycloak/keycloak?label=latest%20release)
-[![OpenSSF Best Practices](https://bestpractices.coreinfrastructure.org/projects/6818/badge)](https://bestpractices.coreinfrastructure.org/projects/6818)
-![GitHub Repo stars](https://img.shields.io/github/stars/keycloak/keycloak?style=flat)
-![GitHub commit activity](https://img.shields.io/github/commit-activity/m/keycloak/keycloak)
+We extended the keycloak with popular China's social media identifier providers,
+including:
 
+- Wecom
 
-# Open Source Identity and Access Management
+## Build
 
-Add authentication to applications and secure services with minimum effort. No need to deal with storing users or authenticating users.
+```bash
+./mvnw -pl mapletree/social/wecom clean install 
+```
 
-Keycloak provides user federation, strong authentication, user management, fine-grained authorization, and more.
+## Implement Details
 
+### Wecom
 
-## Help and Documentation
+The keycloak standard OAuth2 (OIDC is extended from OAuth2) authenticate flow is
 
-* [Documentation](https://www.keycloak.org/documentation.html)
-* [User Mailing List](https://groups.google.com/d/forum/keycloak-user) - Mailing list for help and general questions about Keycloak
+1. User click on social login button
+   1. AbstractOAuth2IdentityProvider.performLogin
+      1. AbstractOAuth2IdentityProvider.createAuthorizationUrl
+      1. 302 redirect
+1. Redirect user to IdP
+   1. login at IdP
+1. Redirect user back to keycloak
+   1. AbstractOAuth2IdentityProvider.callback
+      1. AbstractOAuth2IdentityProvider.EndPoint.authResponse@Get
+         1. AbstractOAuth2IdentityProvider.EndPoint.generateTokenRequest
+            `Get access_token from code`
+         1. AbstractOAuth2IdentityProvider.getFederatedIdentity.
+            `Get userinfo form access_token Generate federatedIdentity for account search`
+   1. IdentityBrokerService.autenticated
+      1. UserStorageManager.getUserByFederatedIdentity
 
+However, the wecom authenticate flow is incompatiple to the standard flow.
 
-## Reporting Security Vulnerabilities
+1. Background service retrives agent access_token every two hours.
+1. Redirect user to IdP
+1. Redirect user back to service with code
+1. Get wecom userid with agent access_token and user code
+1. Get user name with agent access_token and wecom userid
+1. (Only in wecom app) Get user email and phone with agent access_token and
+   wecom userid
 
-If you have found a security vulnerability, please look at the [instructions on how to properly report it](https://github.com/keycloak/keycloak/security/policy).
+The key difference is that wecom asks the service to store access_token on its
+own and use three http requests to get the user info. And if any request fails
+with access_token expired. Refresh the agent access_token and retry the fetch.
+To make wecom compatible with keycloak, every plugin choose different point to
+override (and hack) the keycloak social provider.
 
+Our choise is to block the "generateTokenRequest" with fake http response. And do all the dirty stuff with overriding the "getFederatedIdentity" call.
 
-## Reporting an issue
+## Prior Arts
 
-If you believe you have discovered a defect in Keycloak, please open [an issue](https://github.com/keycloak/keycloak/issues).
-Please remember to provide a good summary, description as well as steps to reproduce the issue.
+We thank the following great works for inspiring our project. However, the
+reason why we decided to rewrite the code is that non of the projects are
+actively under maintained. We cannot finish the prject such easily without these
+prior works.
 
+https://github.com/jyqq163/keycloak-services-social-weixin
 
-## Getting started
+https://github.com/Jeff-Tian/keycloak-services-social-weixin ( was removed by
+author. A backup mirror at
+https://gitee.com/zizhujy/keycloak-services-social-weixin )
 
-To run Keycloak, download the distribution from our [website](https://www.keycloak.org/downloads.html). Unzip and run:
-
-    bin/kc.[sh|bat] start-dev
-
-Alternatively, you can use the Docker image by running:
-
-    docker run quay.io/keycloak/keycloak start-dev
-    
-For more details refer to the [Keycloak Documentation](https://www.keycloak.org/documentation.html).
-
-
-## Building from Source
-
-To build from source, refer to the [building and working with the code base](docs/building.md) guide.
-
-
-### Testing
-
-To run tests, refer to the [running tests](docs/tests.md) guide.
-
-
-### Writing Tests
-
-To write tests, refer to the [writing tests](docs/tests-development.md) guide.
-
-
-## Contributing
-
-Before contributing to Keycloak, please read our [contributing guidelines](CONTRIBUTING.md). Participation in the Keycloak project is governed by the [CNCF Code of Conduct](https://github.com/cncf/foundation/blob/main/code-of-conduct.md).
-
-
-## Other Keycloak Projects
-
-* [Keycloak](https://github.com/keycloak/keycloak) - Keycloak Server and Java adapters
-* [Keycloak QuickStarts](https://github.com/keycloak/keycloak-quickstarts) - QuickStarts for getting started with Keycloak
-* [Keycloak Node.js Connect](https://github.com/keycloak/keycloak-nodejs-connect) - Node.js adapter for Keycloak
-
-
-## License
-
-* [Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0)
+https://github.com/kkzxak47/keycloak-services-social-wechatworkr
