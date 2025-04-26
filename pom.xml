@@ -1287,6 +1287,12 @@
                 <version>${infinispan.version}</version>
             </dependency>
 
+            <!-- mapletree -->
+            <dependency>
+                <groupId>com.mptree</groupId>
+                <artifactId>keycloak-social-wecom</artifactId>
+                <version>${project.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
