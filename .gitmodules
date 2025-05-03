@@ -1,0 +1,3 @@
+[submodule "mapletree/keycloak-phone-provider"]
+	path = mapletree/keycloak-phone-provider
+	url = git@github.com:bigmapletree/keycloak-phone-provider.git
