@@ -1289,6 +1289,76 @@
 
             <!-- mapletree -->
             <dependency>
+                <groupId>cc.coopersoft</groupId>
+                <artifactId>keycloak-phone-provider</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cc.coopersoft</groupId>
+                <artifactId>keycloak-phone-provider.resources</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cc.coopersoft</groupId>
+                <artifactId>keycloak-sms-provider-aliyun</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cc.coopersoft</groupId>
+                <artifactId>keycloak-sms-provider-aws-sns</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cc.coopersoft</groupId>
+                <artifactId>keycloak-sms-provider-bulksms</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cc.coopersoft</groupId>
+                <artifactId>keycloak-sms-provider-cloopen</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cc.coopersoft</groupId>
+                <artifactId>keycloak-sms-provider-dummy</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cc.coopersoft</groupId>
+                <artifactId>keycloak-sms-provider-tencent</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cc.coopersoft</groupId>
+                <artifactId>keycloak-sms-provider-totalvoice</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cc.coopersoft</groupId>
+                <artifactId>keycloak-sms-provider-twilio</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cc.coopersoft</groupId>
+                <artifactId>keycloak-sms-provider-twofactor</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cc.coopersoft</groupId>
+                <artifactId>keycloak-sms-provider-whatsapp</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cc.coopersoft</groupId>
+                <artifactId>keycloak-sms-provider-yunxin</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cc.coopersoft</groupId>
+                <artifactId>keycloak-wx-provider-app</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>com.mptree</groupId>
                 <artifactId>keycloak-social-wecom</artifactId>
                 <version>${project.version}</version>
