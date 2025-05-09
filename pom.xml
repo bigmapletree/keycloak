@@ -1309,6 +1309,21 @@
                 <artifactId>keycloak-social-wecom</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <dependency>
+                <groupId>cc.coopersoft</groupId>
+                <artifactId>keycloak-phone-provider</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cc.coopersoft</groupId>
+                <artifactId>keycloak-phone-provider.resources</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cc.coopersoft</groupId>
+                <artifactId>keycloak-sms-provider-dummy</artifactId>
+                <version>${project.version}</version>
+            </dependency>
 
         </dependencies>
     </dependencyManagement>

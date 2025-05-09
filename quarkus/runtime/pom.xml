@@ -633,6 +633,22 @@
             <groupId>com.mptree</groupId>
             <artifactId>keycloak-social-wecom</artifactId>
         </dependency>
+        <dependency>
+            <groupId>cc.coopersoft</groupId>
+            <artifactId>keycloak-phone-provider</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cc.coopersoft</groupId>
+            <artifactId>keycloak-phone-provider.resources</artifactId>
+        </dependency>
+        <!-- <dependency>
+            <groupId>cc.coopersoft</groupId>
+            <artifactId>keycloak-sms-provider-aliyun</artifactId>
+        </dependency> -->
+        <dependency>
+            <groupId>cc.coopersoft</groupId>
+            <artifactId>keycloak-sms-provider-dummy</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
