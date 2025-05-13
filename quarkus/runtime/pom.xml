@@ -641,10 +641,10 @@
             <groupId>cc.coopersoft</groupId>
             <artifactId>keycloak-phone-provider.resources</artifactId>
         </dependency>
-        <!-- <dependency>
+        <dependency>
             <groupId>cc.coopersoft</groupId>
             <artifactId>keycloak-sms-provider-aliyun</artifactId>
-        </dependency> -->
+        </dependency>
         <dependency>
             <groupId>cc.coopersoft</groupId>
             <artifactId>keycloak-sms-provider-dummy</artifactId>

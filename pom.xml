@@ -1321,6 +1321,11 @@
             </dependency>
             <dependency>
                 <groupId>cc.coopersoft</groupId>
+                <artifactId>keycloak-sms-provider-aliyun</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cc.coopersoft</groupId>
                 <artifactId>keycloak-sms-provider-dummy</artifactId>
                 <version>${project.version}</version>
             </dependency>
