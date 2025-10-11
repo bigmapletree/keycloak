@@ -57,12 +57,14 @@ public class WecomIdentityProvider
   public static final String WECOM_LOGIN_TYPE_CORP_APP = "CorpApp";
 
   public static final String WECOM_SCOPE_SNSAPI_USERINFO = "snsapi_userinfo";
-  public static final String WECOM_SCOPE_SNSAPI_PRIVATEINFO = "snsapi_privateinfo";
+  public static final String WECOM_SCOPE_SNSAPI_PRIVATEINFO =
+      "snsapi_privateinfo";
 
   public static final String WECOM_FIELD_ACCESS_TOKEN = "access_token";
   public static final String WECOM_FIELD_BIZ_MAIL = "biz_mail";
   public static final String WECOM_FIELD_ERRCODE = "errcode";
   public static final String WECOM_FIELD_ERRMSG = "errmsg";
+  public static final String WECOM_FIELD_MOBILE = "mobile";
   public static final String WECOM_FIELD_NAME = "name";
   public static final String WECOM_FIELD_USER_TICKET = "user_ticket";
   public static final String WECOM_FIELD_USERID = "userid";
@@ -267,6 +269,7 @@ public class WecomIdentityProvider
     }
     JsonNode userDetail = null;
     if (userTicket != null && !userTicket.isEmpty()) {
+      logger.infof("Fetch wecom user detail for %s", userId);
       userDetail = this.wecomApiClient.authRequest(
           UriBuilder.fromUri(USER_DETAIL_URL)
               .queryParam(WECOM_PARAM_CODE, authorizationCode),
@@ -283,6 +286,18 @@ public class WecomIdentityProvider
     JsonNode jsonEmail =
         userDetail != null ? userDetail.get(WECOM_FIELD_BIZ_MAIL) : null;
     identity.setEmail(jsonEmail != null ? jsonEmail.asText() : "");
+    JsonNode jsonPhoneNumber =
+        userDetail != null ? userDetail.get(WECOM_FIELD_MOBILE) : null;
+    String phoneNumber =
+        jsonPhoneNumber != null ? jsonPhoneNumber.asText() : "";
+    if (phoneNumber.startsWith("+")) {
+      if (phoneNumber.startsWith("+86") && !phoneNumber.startsWith("+86-")) {
+        phoneNumber = "+86-" + phoneNumber.substring(3);
+      }
+    } else {
+      phoneNumber = "+86-" + phoneNumber;
+    }
+    identity.setUserAttribute("phoneNumber", phoneNumber);
     identity.setUsername(jsonEmail != null ? jsonEmail.asText() : "");
     return identity;
   }
