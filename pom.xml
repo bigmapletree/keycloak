@@ -1360,6 +1360,11 @@
             </dependency>
             <dependency>
                 <groupId>com.mptree</groupId>
+                <artifactId>keycloak-phone-login</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.mptree</groupId>
                 <artifactId>keycloak-social-wecom</artifactId>
                 <version>${project.version}</version>
             </dependency>
