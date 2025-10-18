@@ -1,0 +1,2 @@
+com.mptree.keycloak.authentication.authenticators.phone.PhoneCreateUserByPhoneFactory
+com.mptree.keycloak.authentication.authenticators.phone.PhoneLoginByPhoneFormFactory
