@@ -239,7 +239,7 @@ public class QuarkusJpaConnectionProviderFactory extends AbstractJpaConnectionPr
 
         JpaUpdaterProvider updater = session.getProvider(JpaUpdaterProvider.class);
 
-        boolean requiresMigration = version == null || !version.equals(new ModelVersion(Version.VERSION).toString());
+        boolean requiresMigration = version == null || !version.equals(new ModelVersion(Version.VERSION).toString()) || version.equals("999.0.0");
         session.setAttribute(VERIFY_AND_RUN_MASTER_CHANGELOG, requiresMigration);
 
         JpaUpdaterProvider.Status status = updater.validate(connection, schema);
