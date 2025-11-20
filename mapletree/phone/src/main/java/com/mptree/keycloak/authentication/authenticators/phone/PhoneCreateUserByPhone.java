@@ -54,7 +54,8 @@ public class PhoneCreateUserByPhone implements Authenticator {
         UserModel phoneUser = context.getSession().users().addUser(
                 context.getRealm(), canonicalPhoneNumber);
         phoneUser.setEnabled(true);
-        phoneUser.setUsername(phoneUser.getId());
+        String sanitizedUserUuid = phoneUser.getId().replaceAll("-", "");
+        phoneUser.setUsername(sanitizedUserUuid.substring(0, 8));
         phoneUser.setSingleAttribute("phoneNumber", canonicalPhoneNumber);
         phoneUser.setSingleAttribute("phoneNumberVerified", "true");
         context.setUser(phoneUser);
